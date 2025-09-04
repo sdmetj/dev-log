@@ -6,47 +6,28 @@ products = [
 
 ]
 
-# 메뉴 출력
-print("\n---제고 관리 시스템 메뉴---")
-print("1. 상품 목록 보기")
-print("2. 재고 업데이트")
-print("3. 총 재고 가치 합계")
-print("4. 종료")
-
-# 무한 루프 시작
-while True:
-    choice = input("\n원하시는 메뉴를 선택해주세요.(1-4): ")
-    
-    # 1. 상품 목록 보기
-    if choice == '1':
-        print("\n--- 모든 상품 목록 ---")
-        if not products: # 상품 리스트가 비어있다면
+def display_products(): # 모든 상품 디스플레이 함수
+    print("\n--- 모든 상품 목록 ---")
+    if not products: # 상품 리스트가 비어있다면
             print("등록된 상품이 없습니다.")
-        else: # 상품이 있을 때
-            for i, product_data in enumerate(products):
+    else: # 상품이 있을 때
+        for i, product_data in enumerate(products):
                 product_name = product_data["name"]
                 product_price = product_data["price"]
                 product_stock = product_data["stock"]
                 print(f"{i+1}. {product_name} (가격: {product_price}원, 재고: {product_stock}개)")
         print("------------------------")
-    
-    elif choice =='2':
-        print("\n--- 현재 재고 상태 ---")
-        for i, product_data in enumerate(products):
-            product_name = product_data["name"]
-            product_stock = product_data["stock"]    
-            print(f"{i+1}. {product_name} (재고: {product_stock}개)")
-        print("------------------------")    
         
-        try:
+def update_product_stock():
+    try:
            selected_product_number_str = input("재고를 업데이트할 상품 번호를 입력하세요: ")
            selected_product_number = int(selected_product_number_str)
            # 임시 출력(변환 확인 용도)
            # print(f"선택된 상품 번호 (숫자): {selected_product_number}")
            
-        except ValueError: # int() 변환 시 숫자가 아닌 것을 입력했을 때 발생
-            print("유효하지 않은 상품 번호입니다. 숫자를 입력해주세요.")
-        else:
+    except ValueError: # int() 변환 시 숫자가 아닌 것을 입력했을 때 발생
+                print("유효하지 않은 상품 번호입니다. 숫자를 입력해주세요.")
+    else:
             
             if 1 <= selected_product_number <= len(products):
                 print(f"유효한 상품 번호를 선택했습니다! (선택된 번호: {selected_product_number})")
@@ -80,13 +61,13 @@ while True:
             else:
                 print(f"유효하지 않은 상품 번호입니다. 1부터 {len(products)} 사이의 숫자를 입력해주세요.")
     
-    elif choice == '3':
-        print("\n--- 총 재고 가치 합계 ---")
+def calculate_and_display_total_value():
+    print("\n--- 총 재고 가치 합계 ---")
         
         #1. 총 가치를 저장할 변수를 0으로 촉화
-        total_value = 0
+    total_value = 0
         
-        for product_data in products:
+    for product_data in products:
             price = product_data["price"]
             stock = product_data["stock"]
             
@@ -95,8 +76,31 @@ while True:
             total_value += item_value
             
         # 3. 최종 출력
-        print(f"현재 총 재고 가치는 {total_value}원 입니다.")
-        print("-----------------------")
+    print(f"현재 총 재고 가치는 {total_value}원 입니다.")
+    print("-----------------------")
+    
+# 메뉴 출력
+print("\n---제고 관리 시스템 메뉴---")
+print("1. 상품 목록 보기")
+print("2. 재고 업데이트")
+print("3. 총 재고 가치 합계")
+print("4. 종료")
+
+# 무한 루프 시작
+while True:
+    choice = input("\n원하시는 메뉴를 선택해주세요.(1-4): ")
+    
+    # 1. 상품 목록 보기
+    if choice == '1':
+        display_products()
+    
+    elif choice =='2':
+        print("\n--- 현재 재고 상태 ---")
+        display_products()  
+        update_product_stock()
+        
+    elif choice == '3':
+        calculate_and_display_total_value()
         
     elif choice == '4':
         print("재고 관리 시스템을 종료합니다.")
