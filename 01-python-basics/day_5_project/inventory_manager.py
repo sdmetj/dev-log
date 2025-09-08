@@ -1,20 +1,36 @@
 # --- 재고 관리 시스템 ---
-products = [
-    {"name": "철 검", "price": 1000, "stock": 10},
-    {"name": "고목나무 지팡이", "price": 2500, "stock": 20},
-    {"name": "중급 회복물약", "price": 500, "stock": 100}
 
+class Product: #Product 클래스 정의 시작
+    def __init__(self, name, price, stock):
+        self.name = name   # 상품 이름
+        self.price = price # 상품 가격
+        self.stock = stock # 상품 재고
+        
+
+#products = [
+    #{"name": "철 검", "price": 1000, "stock": 10},
+    #{"name": "고목나무 지팡이", "price": 2500, "stock": 20},
+    #{"name": "중급 회복물약", "price": 500, "stock": 100}
+
+#]
+
+products = [
+    Product("철 검", 1000, 10),
+    Product("고목나무 지팡이", 2500, 20),
+    Product("중급 회복물약", 500, 100)
 ]
+
+
 
 def display_products(): # 모든 상품 디스플레이 함수
     print("\n--- 모든 상품 목록 ---")
     if not products: # 상품 리스트가 비어있다면
             print("등록된 상품이 없습니다.")
     else: # 상품이 있을 때
-        for i, product_data in enumerate(products):
-                product_name = product_data["name"]
-                product_price = product_data["price"]
-                product_stock = product_data["stock"]
+        for i, product_obj in enumerate(products):
+                product_name = product_obj.name   # .name
+                product_price = product_obj.price # .price
+                product_stock = product_obj.stock # .stock
                 print(f"{i+1}. {product_name} (가격: {product_price}원, 재고: {product_stock}개)")
         print("------------------------")
         
@@ -30,6 +46,12 @@ def update_product_stock():
     else:
             
             if 1 <= selected_product_number <= len(products):
+                
+                # 왜 여기서 인덱스 계산을 하는거지?
+                actual_index = selected_product_number - 1
+                # 왜 여기로 옮긴거지?
+                product_to_update = products[actual_index] # 여기서 Product 객체를 가져옴
+                
                 print(f"유효한 상품 번호를 선택했습니다! (선택된 번호: {selected_product_number})")
                 
                 try:
@@ -38,17 +60,11 @@ def update_product_stock():
                     
                     if new_stock >= 0:
                         
-                        # 실제 인덱스 계산
-                        actual_index = selected_product_number - 1
-                        
-                        # products 리스트에서 해당 상품 딕셔너리 가져오기
-                        product_to_update = products[actual_index]
-                        
-                        # 상품 딕셔너리의 'stock' 값 업데이트
-                        product_to_update["stock"] = new_stock
+                        # Product 객체로 변경했기 때문에 코드도 바뀌어야함
+                        product_to_update.stock = new_stock
                         
                         # 업데이트 완료 메시지 출력
-                        print(f"'{product_to_update['name']}'의 재고가 {new_stock}개로 업데이트되었습니다.")
+                        print(f"'{product_to_update.name}'의 재고가 {new_stock}개로 업데이트되었습니다.")
                         
                         print("------------------------")
                         
@@ -67,9 +83,9 @@ def calculate_and_display_total_value():
         #1. 총 가치를 저장할 변수를 0으로 촉화
     total_value = 0
         
-    for product_data in products:
-            price = product_data["price"]
-            stock = product_data["stock"]
+    for product_obj in products:
+            price = product_obj.price
+            stock = product_obj.stock
             
             item_value = price * stock
             
