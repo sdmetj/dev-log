@@ -22,12 +22,25 @@ class Product: #Product 클래스 정의 시작
     def get_info_string(self):
         return f"{self.name} (가격: {self.price}원, 재고: {self.stock}개)"
 
+class ToolProduct(Product): # Product를 상속받음
+    def __init__(self, name, price, stock, durability):
+        
+        # Product의 속성을 초기화함 
+        super().__init__(name, price, stock)
+        self.durability = durability
+    def get_info_string(self):
+        # 부모가 제공하는 기본 정보 문자열을 가져옴
+        base_info = super().get_info_string()
+        return f"{base_info}, 내구도: {self.durability}"
+
 class InventoryManager: 
     def __init__(self):
         self.products = [
             Product("철 검", 1000, 10),
             Product("고목나무 지팡이", 2500, 20),
-            Product("중급 회복물약", 500, 100)
+            Product("중급 회복물약", 500, 100),
+            ToolProduct("나무 곡괭이", 100, 5, 50),
+            ToolProduct("다이아몬드 도끼", 50000, 1, 1500)
         ]
         
     def display_products(self): # 모든 상품 디스플레이 함수
@@ -35,7 +48,7 @@ class InventoryManager:
         if not self.products: # 상품 리스트가 비어있다면
             print("등록된 상품이 없습니다.")
         else: # 상품이 있을 때
-            for i, product_obj in enumerate(products):
+            for i, product_obj in enumerate(self.products):
                 print(f"{i+1}. {product_obj.get_info_string()}")
         print("------------------------")
             
@@ -75,6 +88,8 @@ class InventoryManager:
                     print("유효하지 않은 재고 수량입니다. ")
             else:
                 print(f"유효하지 않은 상품 번호입니다. 1부터 {len(self.products)} 사이의 숫자를 입력해주세요.")
+    
+    
     def calculate_and_display_total_value(self):
         print("\n--- 총 재고 가치 합계 ---")
         
@@ -89,17 +104,7 @@ class InventoryManager:
         print(f"현재 총 재고 가치는 {total_value}원 입니다.")
         print("-----------------------")
 
-products = [
-    Product("철 검", 1000, 10),
-    Product("고목나무 지팡이", 2500, 20),
-    Product("중급 회복물약", 500, 100)
-]
 
-
-        
-
-
-    
 # --- 재고 관리 시스템 메뉴 ---
 print("\n---재고 관리 시스템 메뉴---")
 print("1. 상품 목록 보기")
