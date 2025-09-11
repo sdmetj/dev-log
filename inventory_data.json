@@ -1,0 +1,37 @@
+[
+    {
+        "name": "철 검",
+        "price": 1000,
+        "stock": 10,
+        "type": "Product",
+        "durability": null
+    },
+    {
+        "name": "고목나무 지팡이",
+        "price": 2500,
+        "stock": 9000,
+        "type": "Product",
+        "durability": null
+    },
+    {
+        "name": "중급 회복물약",
+        "price": 500,
+        "stock": 100,
+        "type": "Product",
+        "durability": null
+    },
+    {
+        "name": "나무 곡괭이",
+        "price": 100,
+        "stock": 5,
+        "type": "ToolProduct",
+        "durability": 50
+    },
+    {
+        "name": "다이아몬드 도끼",
+        "price": 50000,
+        "stock": 1,
+        "type": "ToolProduct",
+        "durability": 1500
+    }
+]
