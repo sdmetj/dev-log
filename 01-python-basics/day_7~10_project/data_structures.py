@@ -121,4 +121,51 @@ if __name__ == "__main__": # 이 코드는 이 파일이 직접 실행될 떄만
         print(f"큐가 비어있나요? {my_queue.is_empty()}") # True
         print("=== 큐 테스트 완료 ===")
         
-  
+    # --- 3. 이진 탐색 (Binary Search) 구현 ---
+    def binary_search(sorted_list, target):
+        low = 0                 # 탐색 시작 지점 (인덱스)
+        high = len(sorted_list) - 1 # 탐색 끝 지점 (인덱스)
+        
+        print(f"\n--- 이진 탐색 시작: 찾을 값={target}, 대상 리스트={sorted_list} ---")
+        
+        while low <= high:
+            mid = (low + high) // 2 # 중간 인덱스 계산
+            guess = sorted_list[mid] # 중간 인덱스의 값
+            
+            print(f"현재 범위: low={low}, high={high}, mid={mid}, guess={guess}")
+            
+            if guess == target:
+                print(f"{target}을(를) 인덱스 {mid}에서 찾았습니다!")
+                return mid # 값을 찾으면 해당 인덱스 반환
+            elif guess < target:
+                print(f"{guess}은(는) {target}보다 작습니다. 검색 범위를 오른쪽으로 줄입니다.")
+                low = mid + 1 # 중간 값보다 작으니, 중간의 오른쪽 부분을 탐색
+            else: # guess > target
+                print(f"{guess}은(는) {target}보다 큽니다. 검색 범위를 왼쪽으로 줄입니다.")
+                high = mid - 1 # 중간 값보다 작으니, 중간의 왼쪽 부분을 탐색
+                
+        print(f"{target}을(를) 리스트에서 찾을 수 없습니다.")
+        return -1 
+    
+    # --- 이진 탐색 동작 테스트 ---
+    if __name__ == "__main__":
+    
+        sorted_numbers = [1, 5, 7, 8, 12, 13, 19, 23, 29, 30]
+    
+    # 존재하는 값 찾기
+    result1 = binary_search(sorted_numbers, 13)
+    # 다른 값으로도 테스트 해보세요:
+    # result1 = binary_search(sorted_numbers, 1)
+    # result1 = binary_search(sorted_numbers, 30)
+
+    # 존재하지 않는 값 찾기
+    result2 = binary_search(sorted_numbers, 4)
+    # 다른 값으로도 테스트 해보세요:
+    # result2 = binary_search(sorted_numbers, 2)
+    # result2 = binary_search(sorted_numbers, 25)
+    # result2 = binary_search(sorted_numbers, 0)
+    # result2 = binary_search(sorted_numbers, 31)
+
+    # 최종 결과 출력 (위의 함수 호출 후에 아래 줄들을 주석 해제하여 사용할 수 있습니다.)
+    # print(f"찾은 인덱스 (13): {result1}")
+    # print(f"찾은 인덱스 (4): {result2}")
