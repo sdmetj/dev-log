@@ -115,7 +115,8 @@ class InventoryManager:
                     print("유효하지 않은 재고 수량입니다. ")
             else:
                 print(f"유효하지 않은 상품 번호입니다. 1부터 {len(self.products)} 사이의 숫자를 입력해주세요.")
-    
+        finally:
+            print("재고 업데이트 시도 절차가 완료되었습니다.\n")
     
     def calculate_and_display_total_value(self):
         print("\n--- 총 재고 가치 합계 ---")

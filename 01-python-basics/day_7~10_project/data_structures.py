@@ -169,3 +169,31 @@ if __name__ == "__main__": # 이 코드는 이 파일이 직접 실행될 떄만
     # 최종 결과 출력 (위의 함수 호출 후에 아래 줄들을 주석 해제하여 사용할 수 있습니다.)
     # print(f"찾은 인덱스 (13): {result1}")
     # print(f"찾은 인덱스 (4): {result2}")
+    
+# --- 4. 재귀 함수로 팩토리얼(Factorial) 구현 ---
+def factorial_recursive(n):
+    # 재귀 함수의 핵심: 기저 조건 (Base Case)
+    # n이 0 또는 1일 때는 더이상 쪼갤 필요 없이 결과가 1입니다.
+    if n == 0 or n == 1:
+        print(f" 팩토리얼 계산: n={n}, 기저 조건 도달! 결과=1")
+        return 1
+    
+    # 재귀 호출 (Recursive Call)
+    # n! = n * (n-1)! 이라는 정의를 코드화합니다.
+    # 문제를 n과 (n-1)의 팩토리얼 계산으로 '더 작은 문제'로 나눕니다.
+    print(f" 팩토리얼 계산: n={n}, n * factorial_recursive({n-1}) 호출...")
+    result = n * factorial_recursive(n - 1)
+    print(f" 팩토리얼 계산: n={n} 결과 ({n} * {n-1}!) = {result}")
+    return result
+
+# --- 팩토리얼 재귀 함수 동작 테스트 ---
+if __name__=="__main__":
+    
+    print("\n=== 재귀 팩토리얼 테스트 시작 ===")
+    
+    print(f"5! = {factorial_recursive(5)}")
+    print("-" * 20)
+    print(f"3! = {factorial_recursive(3)}")
+    print("-" * 20)
+    print(f"0! = {factorial_recursive(0)}")
+    print("=== 재귀 팩토리얼 테스트 완료 ===")
