@@ -197,3 +197,47 @@ if __name__=="__main__":
     print("-" * 20)
     print(f"0! = {factorial_recursive(0)}")
     print("=== 재귀 팩토리얼 테스트 완료 ===")
+    
+
+# --- 5. 선택 정렬(Selection Sort) 구현 ---
+def selection_sort(arr):
+    n = len(arr)
+    print(f"\n--- 선택 정렬 시작: 정렬 전 리스트 : {arr} ---")
+    
+    for i in range(n - 1): # 마지막 원소는 자동으로 정렬되므로 n-1까지만 반복
+        # 현재 정렬되지 않은 부분에서 가장 작은 원소의 인덱스를 찾는다.
+        min_idx = i
+        print(f"\n단계 {i+1}: '{arr[i]}'를 위한 최소값 찾기 (현재 부분: {arr[i:]})")
+        
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+            print(f" 비교: {arr[j]} vs {arr[min_idx]} -> 현재 최소값: {arr[min_idx]} (인덱스{min_idx})")
+        
+        # 찾은 가장 작은 원소를 현재 위치(i)의 원소와 교환한다.
+        # 즉, arr[i]가 가장 작은 원소가 된다.
+        if min_idx != i: # 실제로 교환이 필요한 경우에만 출력
+            arr[i], arr[min_idx] = arr[min_idx], arr[i]
+            print(f" '{arr[min_idx]}'와 '{arr[i]}' 교환! 리스트: {arr}")
+        else:
+            print(f" '{arr[i]}'가 이미 최소값입니다. 교환 없음. 리스트: {arr}")
+            
+    print(f"\n--- 선택 정렬 완료: 정렬 후 리스트: {arr} ---")
+    return arr
+
+# --- 선택 정렬 동작 테스트 ---
+if __name__ == "__main__": # 이 코드는 이 파일이 직접 실행될 때만 작동합니다.
+    # 이전 테스트 코드들 아래에 추가하세요.
+
+    print("\n\n=== 선택 정렬 테스트 시작 ===")
+    
+    unsorted_list1 = [64, 25, 12, 22, 11]
+    sorted_list1 = selection_sort(unsorted_list1)
+    
+    unsorted_list2 = [5, 2, 8, 1, 9, 3]
+    sorted_list2 = selection_sort(unsorted_list2)
+
+    unsorted_list3 = [1, 2, 3, 4, 5] # 이미 정렬된 리스트
+    sorted_list3 = selection_sort(unsorted_list3)
+    
+    print("\n=== 선택 정렬 테스트 완료 ===")
